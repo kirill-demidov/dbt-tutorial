@@ -11,4 +11,4 @@ select
 	issue_status as status,
 	issue_summ as summary
 from
-	public.mrr_issues
+	{{source('public','mrr_issues')}}

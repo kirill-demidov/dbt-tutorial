@@ -1,0 +1,128 @@
+version: 2
+sources:
+  - name: public
+    description: Raw Data from Alterosmart Jira Cloud 
+    database: postgres
+    tables:
+       - name: mrr_changelog
+         description: changelog raw data for jira cloud 
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         columns: 
+            - name: changelog_id
+              description: Primary key of the changelog table
+              tests:
+               - unique
+               - not_null
+
+       - name: mrr_groups
+         description: list of all user groups in Jira 
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         columns:
+            - name: groupid 
+              description: Primary key of the users table (UID)
+              tests:
+               - unique
+               - not_null
+
+       - name: mrr_groups_users
+         description: list of Jira users in groups in Jira (many-to-many)
+   
+        
+       - name: mrr_issue_fields
+         description: list of all standart and custom fields in Jira issues screen
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         columns:
+            - name: field_id
+              description: field name in Jira Cloud
+              tests:
+               - unique
+               - not_null
+
+       - name: mrr_issues
+         description: list of all ever created issues in Jira
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         columns:
+            - name: issue_id
+              description: primary key of issues table
+              tests:
+               - unique
+               - not_null
+
+       - name: mrr_labels
+         description: list of all labels in group users
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+    
+
+       - name: mrr_project_role_user
+         description: list of roles of each user in each project
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+
+        
+       - name: mrr_project_roles
+         description: list of all roles in each jira project
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         tests:
+          - dbt_utils.unique_combination_of_columns:
+               combination_of_columns:
+                  - roleid
+                  - projectid
+       
+       - name: mrr_projects
+         description: list of all Jira projects in Jira
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         columns:
+           - name: projectid
+             description: primary key of projects table 
+             tests:
+               - unique
+               - not_null
+       
+       - name: mrr_users
+         description: list of all Jira users
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         columns: 
+           - name: userid
+             description: primary key of users table
+             tests:     
+               - unique
+               - not_null
+
+       - name: mrr_worklog
+         description: list of all worlkog records in Jira tasks
+         loaded_at_field: created_at
+         freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+         columns: 
+            - name: worklog_id
+              description: primary key of workolog table
+              tests:
+                - unique
+                - not_null 
