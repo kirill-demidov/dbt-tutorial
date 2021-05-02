@@ -1,3 +1,4 @@
+with issues as (
 select
 	issue_id  as id,
 	issue_link  as link,
@@ -7,8 +8,14 @@ select
 	issue_timespent as timespent ,
 	issue_reporter as reporter,
 	issue_assignee as assignee,
+	issue_creator as creator,
 	issue_created_date  as created_date,
 	issue_status as status,
-	issue_summ as summary
+	issue_summ as summary,
+	project_id,
+	issue_priority as priority
 from
-	{{source('public','mrr_issues')}}
+	{{source('public','mrr_issues')}})
+
+select *
+from issues
