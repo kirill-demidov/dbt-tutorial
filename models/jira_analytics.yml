@@ -1,9 +1,9 @@
 version: 2
 sources:
-  - name: public
-    description: Raw Data from Alterosmart Jira Cloud 
-    database: postgres
-    tables:
+   - name: public
+     description: Raw Data from Alterosmart Jira Cloud 
+     database: postgres
+     tables:
        - name: mrr_changelog
          description: changelog raw data for jira cloud 
          loaded_at_field: created_at
@@ -126,3 +126,50 @@ sources:
               tests:
                 - unique
                 - not_null 
+
+models:
+  - name: stg_roles
+    description: distinct list of roles from mrr_roles
+    columns:
+      - name: role_id
+        description: primary key od stg_roles
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_groups
+    description: distinct list of all user groups in Jira 
+    columns:
+      - name: group_id
+        description: primary key of stg_groups
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_users
+    description: distinct list of all users  in Jira 
+    columns:
+      - name: user_id
+        description: primary key of stg_users
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_projects
+    description: distinct list of all users  in Jira 
+    columns:
+      - name: project_id
+        description: primary key of stg_projects
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_issues
+    description: distinct list of all existing issues in Jira
+    columns:
+      - name: id
+        description: primary key of stg_issues
+        tests:
+          - unique
+          - not_null
+          

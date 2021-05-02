@@ -1,5 +1,5 @@
 with project as (
-   select * from {{ref('stg_projects')}}
+   select *,{{ dbt_utils.current_timestamp() }} as created_at from {{ref('stg_projects')}}
 ), 
 final as (
     select * from project

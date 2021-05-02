@@ -1,5 +1,5 @@
 with roles as (
-    select * from {{ref('stg_roles')}}
+    select *,{{ dbt_utils.current_timestamp() }} as created_at from {{ref('stg_roles')}}
 ),
 
 final as (
