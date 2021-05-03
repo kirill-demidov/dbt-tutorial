@@ -172,4 +172,20 @@ models:
         tests:
           - unique
           - not_null
+  - name: stg_worklog
+    descripton: distinct list of worklogs from Jira 
+    columns:
+      - name: id
+        description: prymary key for worklogs table
+        tests:
+         - unique
+         - not_null
+  - name: fact_worklog
+    description: final fact with all worklogs from Jira - incremental model
+    columns: 
+      - name: id
+        description: primary key for fact_worlkog table
+        tests:
+          - unique
+          - not_null
           
