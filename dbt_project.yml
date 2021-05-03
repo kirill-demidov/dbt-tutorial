@@ -36,4 +36,7 @@ models:
     staging:
       materialized: view
     mart:
-      materialized: table
+      dims:
+        materialized: table
+      facts:
+        materialized: incremental

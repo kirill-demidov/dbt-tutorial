@@ -4,7 +4,7 @@ select
 	issue_link  as link,
 	issue_key  as key,
 	issue_type as type,
-	issue_time_estimated_org as original_estimation,
+	cast(replace(issue_time_estimated_org , 'None', '0')as int) as original_estimation,
 	issue_timespent as timespent ,
 	issue_reporter as reporter,
 	issue_assignee as assignee,
@@ -13,9 +13,11 @@ select
 	issue_status as status,
 	issue_summ as summary,
 	project_id,
-	issue_priority as priority
-from
-	{{source('public','mrr_issues')}})
+	issue_priority as priority,
+	issue_updated_date as updated_date,
+    cast(replace(issue_time_estimate, 'None', '0') as int) as  time_estimate,
+	issue_resolution as resolution
+	from {{source('public','mrr_issues')}})
 
 select *
 from issues
