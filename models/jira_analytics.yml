@@ -181,7 +181,7 @@ models:
          - unique
          - not_null
   - name: fact_worklog
-    description: final fact with all worklogs from Jira - incremental model
+    description: '{{ doc("fact_worklog") }}'
     columns: 
       - name: id
         description: primary key for fact_worlkog table
